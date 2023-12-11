@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  sb-app:
+    image: drugman21/student:latest
+    build: .
+    container_name: "java-app"
+    ports:
+      - 9090:9090
+    networks:
+      - mynetwork
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: "mongo-service"
+    ports:
+      - "27017:27017"
+    volumes:
+      - /home/Drugman21/mongo_data:/data/db
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
